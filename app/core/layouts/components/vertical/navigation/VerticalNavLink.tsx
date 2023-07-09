@@ -30,6 +30,7 @@ import CanViewNavLink from "../../../../../layouts/components/acl/CanViewNavLink
 // ** Util Imports
 import { hexToRGBA } from "../../../../utils/hex-to-rgba";
 import { handleURLQueries } from "../../../utils";
+import Translations from "../../Translations";
 
 interface Props {
   parent?: boolean;
@@ -205,7 +206,7 @@ const VerticalNavLink = ({
                 noWrap: true,
               })}
             >
-              {item.title}
+              <Translations text={item.title} />
             </Typography>
             {item.badgeContent ? (
               <Chip

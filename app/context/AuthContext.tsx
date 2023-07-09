@@ -45,7 +45,6 @@ const AuthProvider = ({ children }: Props) => {
   // ** Hooks
   const router = useRouter();
   const pathname = usePathname();
-  console.log("path", pathname);
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
@@ -116,7 +115,6 @@ const AuthProvider = ({ children }: Props) => {
       })
 
       .catch((err) => {
-        console.log(err);
         if (errorCallback) errorCallback(err);
       });
   };

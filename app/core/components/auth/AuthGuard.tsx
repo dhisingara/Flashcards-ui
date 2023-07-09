@@ -17,7 +17,6 @@ const AuthGuard = (props: AuthGuardProps) => {
   const auth = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  console.log("pathnccccame", pathname);
 
   useEffect(
     () => {

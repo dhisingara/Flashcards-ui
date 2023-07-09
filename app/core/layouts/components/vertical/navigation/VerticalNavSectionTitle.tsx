@@ -14,6 +14,7 @@ import { Settings } from "../../../../context/settingsContext";
 
 // ** Custom Components Imports
 import CanViewNavSectionTitle from "../../../../../layouts/components/acl/CanViewNavSectionTitle";
+import Translations from "../../Translations";
 
 interface Props {
   navHover: boolean;
@@ -51,7 +52,7 @@ const VerticalNavSectionTitle = (props: Props) => {
 
   // ** Vars
   const { mode, navCollapsed } = settings;
-  console.log("navCollapsed", navCollapsed);
+
   return (
     <CanViewNavSectionTitle navTitle={item}>
       <ListSubheader
@@ -75,7 +76,7 @@ const VerticalNavSectionTitle = (props: Props) => {
           <Icon icon="tabler:separator" />
         ) : (
           <TypographyHeaderText noWrap>
-            {item.sectionTitle}
+            <Translations text={item.sectionTitle} />
           </TypographyHeaderText>
         )}
       </ListSubheader>

@@ -33,6 +33,7 @@ import { NavGroup, LayoutProps } from "../../../types";
 import VerticalNavItems from "./VerticalNavItems";
 import UserIcon from "../../../../../layouts/components/UserIcon";
 import CanViewNavGroup from "../../../../../layouts/components/acl/CanViewNavGroup";
+import Translations from "../../Translations";
 
 interface Props {
   item: NavGroup;
@@ -62,6 +63,7 @@ const MenuItemTextWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 
 const VerticalNavGroup = (props: Props) => {
   // ** Props
+
   const {
     item,
     parent,
@@ -292,7 +294,7 @@ const VerticalNavGroup = (props: Props) => {
                   noWrap: true,
                 })}
               >
-                {item.title}
+                <Translations text={item.title} />
               </Typography>
               <Box
                 className="menu-item-meta"

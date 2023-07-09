@@ -56,7 +56,6 @@ export default function RootLayout(props: {
 }) {
   const { children, emotionCache = clientSideEmotionCache } = props;
   const contentHeightFixed = false;
-  console.log(children);
   const getLayout = (
     page:
       | string

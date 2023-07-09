@@ -130,7 +130,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data;
-    console.log(auth);
+    g(auth);
     auth.login({ email, password, rememberMe }, () => {
       setError("email", {
         type: "manual",

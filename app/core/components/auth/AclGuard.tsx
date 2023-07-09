@@ -38,12 +38,7 @@ const AclGuard = (props: AclGuardProps) => {
   const pathName = usePathname();
 
   // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
-  if (
-    guestGuard ||
-    pathName === "/404" ||
-    pathName === "/500" ||
-    pathName === "/"
-  ) {
+  if (guestGuard || pathName === "/404" || pathName === "/500") {
     return <>{children}</>;
   }
 
