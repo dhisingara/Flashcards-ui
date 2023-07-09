@@ -27,6 +27,7 @@ import { defaultACLObj } from "../configs/acl";
 import UserLayout from "../layouts/UserLayout";
 import ReactHotToast from "../core/styles/libs/react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { WordsProvider } from "../context/WordsContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -94,32 +95,34 @@ export default function RootLayout(props: {
           </Head> */}
 
           <AuthProvider>
-            <SettingsProvider {...{ pageSettings: setConfig }}>
-              <SettingsConsumer>
-                {({ settings }) => {
-                  return (
-                    <ThemeComponent settings={settings}>
-                      <WindowWrapper>
-                        <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                          <AclGuard
-                            aclAbilities={aclAbilities}
-                            guestGuard={guestGuard}
-                          >
-                            {getLayout(children)}
-                          </AclGuard>
-                        </Guard>
-                      </WindowWrapper>
-                      <ReactHotToast>
-                        <Toaster
-                          position={settings.toastPosition}
-                          toastOptions={{ className: "react-hot-toast" }}
-                        />
-                      </ReactHotToast>
-                    </ThemeComponent>
-                  );
-                }}
-              </SettingsConsumer>
-            </SettingsProvider>
+            <WordsProvider>
+              <SettingsProvider {...{ pageSettings: setConfig }}>
+                <SettingsConsumer>
+                  {({ settings }) => {
+                    return (
+                      <ThemeComponent settings={settings}>
+                        <WindowWrapper>
+                          <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                            <AclGuard
+                              aclAbilities={aclAbilities}
+                              guestGuard={guestGuard}
+                            >
+                              {getLayout(children)}
+                            </AclGuard>
+                          </Guard>
+                        </WindowWrapper>
+                        <ReactHotToast>
+                          <Toaster
+                            position={settings.toastPosition}
+                            toastOptions={{ className: "react-hot-toast" }}
+                          />
+                        </ReactHotToast>
+                      </ThemeComponent>
+                    );
+                  }}
+                </SettingsConsumer>
+              </SettingsProvider>
+            </WordsProvider>
           </AuthProvider>
         </CacheProvider>
       </body>

@@ -1,9 +1,25 @@
 "use client";
 
-const PracticePage = () => {
-  // ** Hooks
+import Box from "@mui/material/Box/Box";
+import PracticeCard from "./PracticeCard";
 
-  return <h1>Practice</h1>;
+const PracticePage = () => {
+  return (
+    <>
+      <Box
+        sx={{
+          m: "auto",
+          display: "flex",
+          alignContent: "center",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
+        }}
+      >
+        <PracticeCard />
+      </Box>
+    </>
+  );
 };
 
 export default PracticePage;
