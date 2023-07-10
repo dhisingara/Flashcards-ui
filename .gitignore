@@ -13,7 +13,7 @@
 /out/
 
 # production
-build
+/build
 build.tar.gz
 # misc
 .DS_Store

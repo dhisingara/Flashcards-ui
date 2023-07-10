@@ -1,8 +1,0 @@
-{
-  "/favicon.ico/route": "/favicon.ico",
-  "/(app)/page": "/",
-  "/register/page": "/register",
-  "/login/page": "/login",
-  "/(app)/words/page": "/words",
-  "/(app)/practice/page": "/practice"
-}
