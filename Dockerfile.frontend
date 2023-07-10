@@ -8,6 +8,6 @@ COPY . .
 
 RUN npm ci -f --only=production --ignore-scripts
 
-EXPOSE 8080
+EXPOSE 4200
 
 CMD ["npm","run","start"]
