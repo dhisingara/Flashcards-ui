@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm ci -f
 
 COPY . .
-RUN next build
+RUN next run build
 
 
 FROM node:16.14-alpine
