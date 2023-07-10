@@ -11,7 +11,7 @@ export type LoginParams = {
 
 export type RegisterParams = {
   email: string;
-  username: string;
+  userName: string;
   password: string;
 };
 
@@ -20,7 +20,7 @@ export type UserDataType = {
   role: string;
   email: string;
   fullName: string;
-  username: string;
+  userName: string;
   password: string;
   avatar?: string | null;
 };

@@ -6,19 +6,33 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 
-import CardTwitter from "./WordCard";
-import { useContext, useEffect, useState } from "react";
-import { WordsContext } from "../../context/WordsContext";
+import WordCard from "./WordCard";
 
-const CardImgTop = () => {
-  const { words, setWords } = useContext(WordsContext);
+import { Word } from "../../types/types";
 
+const CardGrid = ({
+  words,
+  handleDelete,
+  handleEdit,
+}: {
+  words: Word[];
+  handleDelete: (_id: string) => void;
+  handleEdit: (
+    _id: string,
+    { word, description }: { word: string; description: string }
+  ) => void;
+}) => {
   return (
     <>
       <Grid container spacing={6}>
         {words.map((word) => (
           <Grid item xs={12} sm={6} md={4} sx={{ cursor: "pointer" }}>
-            <CardTwitter key={word.id} word={word} />
+            <WordCard
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              key={word._id}
+              word={word}
+            />
           </Grid>
         ))}
       </Grid>
@@ -26,4 +40,4 @@ const CardImgTop = () => {
   );
 };
 
-export default CardImgTop;
+export default CardGrid;

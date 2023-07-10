@@ -24,16 +24,30 @@ import { v4 as uuidv4 } from "uuid";
 // ** Icon Imports
 import Icon from "../../core/components/icon";
 import { WordsContext } from "../../context/WordsContext";
+import axios from "axios";
+import { httpPost } from "../../httpClient";
+import api from "../../httpClient/api";
 
 interface State {
   password: string;
   showPassword: boolean;
 }
 
-const AddNewWord = ({ onClose }: { onClose: () => void }) => {
+const AddNewWord = ({
+  onClose,
+  addWord,
+}: {
+  onClose: () => void;
+  addWord: ({
+    word,
+    description,
+  }: {
+    word: string;
+    description: string;
+  }) => void;
+}) => {
   const [word, setWord] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const { words, setWords } = useContext(WordsContext);
 
   const handleWordChange = (e: {
     target: { value: SetStateAction<string> };
@@ -46,11 +60,10 @@ const AddNewWord = ({ onClose }: { onClose: () => void }) => {
     setDescription(e.target.value);
   };
 
-  const handleOnsubmit = (e: { preventDefault: () => void }) => {
+  const handleOnsubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setWords((words) => {
-      return words.concat({ id: uuidv4(), word, description });
-    });
+    addWord({ word, description });
+
     onClose();
   };
 
@@ -65,6 +78,7 @@ const AddNewWord = ({ onClose }: { onClose: () => void }) => {
                 fullWidth
                 label="Word"
                 placeholder="Abject"
+                autoFocus
                 value={word}
                 onChange={handleWordChange}
                 helperText="A difficult word you want to learn and remember"

@@ -54,14 +54,14 @@ const AuthProvider = ({ children }: Props) => {
       if (storedToken) {
         setLoading(true);
         await axios
-          .get(authConfig.meEndpoint, {
+          .get(process.env.NEXT_PUBLIC_BASE_URL + authConfig.meEndpoint, {
             headers: {
               Authorization: storedToken,
             },
           })
           .then(async (response) => {
             setLoading(false);
-            setUser({ ...response.data.userData });
+            setUser({ ...response.data });
           })
           .catch(() => {
             localStorage.removeItem("userData");
@@ -90,7 +90,7 @@ const AuthProvider = ({ children }: Props) => {
     errorCallback?: ErrCallbackType
   ) => {
     axios
-      .post(authConfig.loginEndpoint, params)
+      .post(process.env.NEXT_PUBLIC_BASE_URL + authConfig.loginEndpoint, params)
       .then(async (response) => {
         params.rememberMe
           ? window.localStorage.setItem(
@@ -109,7 +109,7 @@ const AuthProvider = ({ children }: Props) => {
           : null;
 
         // const redirectURL = returnUrl && returnUrl !== "/" ? returnUrl : "/";
-        const redirectURL = "/";
+        const redirectURL = "/practice";
 
         router.replace(redirectURL as string);
       })
@@ -131,7 +131,10 @@ const AuthProvider = ({ children }: Props) => {
     errorCallback?: ErrCallbackType
   ) => {
     axios
-      .post(authConfig.registerEndpoint, params)
+      .post(
+        process.env.NEXT_PUBLIC_BASE_URL + authConfig.registerEndpoint,
+        params
+      )
       .then((res) => {
         if (res.data.error) {
           if (errorCallback) errorCallback(res.data.error);

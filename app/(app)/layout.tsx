@@ -9,7 +9,7 @@ import {
 import type { Metadata } from "next";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { Inter } from "next/font/google";
-import "../core/@fake-db";
+// import "../core/@fake-db";
 
 import { createEmotionCache } from "../core/utils/create-emotion-cache";
 import { AuthProvider } from "../context/AuthContext";

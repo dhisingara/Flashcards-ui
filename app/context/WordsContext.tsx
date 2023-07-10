@@ -12,10 +12,9 @@ import {
   WordsValuesType,
 } from "./types";
 import { Word } from "../types/types";
-import { words as seedData } from "../seedData/data";
 // ** Defaults
 const defaultProvider: WordsValuesType = {
-  words: seedData,
+  words: [],
   setWords: () => {},
 };
 
@@ -27,7 +26,7 @@ type Props = {
 
 const WordsProvider = ({ children }: Props) => {
   // ** States
-  const [words, setWords] = useState<Word[]>(seedData);
+  const [words, setWords] = useState<Word[]>([]);
 
   const values = {
     words,

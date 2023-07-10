@@ -30,12 +30,17 @@ interface State {
   showPassword: boolean;
 }
 
-const AddNewWord = ({
-  word: { id, word: propWord, description: propDescription },
+const EditNewWord = ({
+  word: { _id, word: propWord, description: propDescription },
   onClose,
+  handleEdit,
 }: {
-  word: Word;
+  word: { word: string; _id: string; description: string };
   onClose: () => void;
+  handleEdit: (
+    _id: string,
+    { word, description }: { word: string; description: string }
+  ) => void;
 }) => {
   // ** States
   const [word, setWord] = useState<string>(propWord);
@@ -55,12 +60,7 @@ const AddNewWord = ({
 
   const handleOnsubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setWords((words) => {
-      const resultWord = words.find((word) => word.id === id) || ({} as Word);
-      resultWord["word"] = word;
-      resultWord["description"] = description;
-      return words;
-    });
+    handleEdit(_id, { word, description });
     onClose();
   };
 
@@ -74,6 +74,7 @@ const AddNewWord = ({
               <TextField
                 fullWidth
                 label="Word"
+                autoFocus
                 value={word}
                 onChange={handleWordChange}
                 placeholder="Abject"
@@ -114,4 +115,4 @@ const AddNewWord = ({
   );
 };
 
-export default AddNewWord;
+export default EditNewWord;
