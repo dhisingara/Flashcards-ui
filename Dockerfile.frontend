@@ -3,6 +3,8 @@ FROM node:16.14-alpine as build
 WORKDIR /
 
 COPY package*.json ./
+COPY .env ./
+
 RUN npm ci -f
 
 COPY . .
@@ -18,7 +20,6 @@ ENV NODE_ENV=production
 # COPY --from=build /app/dist/apps/webapp/package*.json ./
 COPY --from=build /package*.json ./
 COPY --from=build /dist ./dist
-COPY --from=build /app ./app
 
 RUN npm ci -f --only=production --ignore-scripts
 
