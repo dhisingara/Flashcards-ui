@@ -12,7 +12,7 @@ import { ThemeColor } from "../../../../core/layouts/types";
 // ** Hooks Imports
 import useBgColor, { UseBgColorType } from "../../../../core/hooks/useBgColor";
 
-const Avatar = forwardRef((props: CustomAvatarProps, ref: Ref<any>) => {
+const Avatar = forwardRef(function (props: CustomAvatarProps, ref: Ref<any>) {
   // ** Props
   const { sx, src, skin, color } = props;
 
@@ -62,5 +62,6 @@ Avatar.defaultProps = {
   skin: "filled",
   color: "primary",
 };
+Avatar.displayName = "Avatar";
 
 export default Avatar;

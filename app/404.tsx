@@ -11,10 +11,9 @@ import Typography from "@mui/material/Typography";
 import Box, { BoxProps } from "@mui/material/Box";
 
 // ** Layout Import
-import BlankLayout from "../core/layouts/BlankLayout";
+import BlankLayout from "./core/layouts/BlankLayout";
 
 // ** Demo Imports
-import FooterIllustrations from "../views/pages/misc/FooterIllustrations";
 
 // ** Styled Components
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -65,7 +64,6 @@ const Error404 = () => {
           src="/images/pages/404.png"
         />
       </Box>
-      <FooterIllustrations />
     </Box>
   );
 };

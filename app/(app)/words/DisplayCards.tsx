@@ -26,11 +26,17 @@ const CardGrid = ({
     <>
       <Grid container spacing={6}>
         {words.map((word) => (
-          <Grid item xs={12} sm={6} md={4} sx={{ cursor: "pointer" }}>
+          <Grid
+            key={word._id}
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            sx={{ cursor: "pointer" }}
+          >
             <WordCard
               handleDelete={handleDelete}
               handleEdit={handleEdit}
-              key={word._id}
               word={word}
             />
           </Grid>

@@ -30,7 +30,7 @@ import Icon from "../core/components/icon";
 // ** Third Party Imports
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 // ** Layout Import
 import BlankLayout from "../core/layouts/BlankLayout";
@@ -238,7 +238,14 @@ const Register = () => {
             <form
               noValidate
               autoComplete="off"
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(
+                onSubmit as SubmitHandler<{
+                  password: string;
+                  userName: string;
+                  email: string;
+                  terms: boolean | undefined;
+                }>
+              )}
             >
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller

@@ -2,7 +2,7 @@
 import { ReactNode, ReactElement, useEffect } from "react";
 
 // ** Next Import
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // ** Hooks Import
 import { useAuth } from "../../../hooks/useAuth";
@@ -16,17 +16,14 @@ const GuestGuard = (props: GuestGuardProps) => {
   const { children, fallback } = props;
   const auth = useAuth();
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
-    if (!router.isReady) {
-      return;
-    }
-
     if (window.localStorage.getItem("userData")) {
       router.replace("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.route]);
+  }, [pathName]);
 
   if (auth.loading || (!auth.loading && auth.user !== null)) {
     return fallback;
