@@ -36,7 +36,7 @@ Currently the build is generated locally and copied to AWS ec2 instance. And the
 
 ## Pending tasks
 
-Due to the time constraints we has to setup the following.
+Due to the time constraints we are yet to setup the following.
 
 - [ ] Strict Linting rules.
 - [ ] Husky for commits hooks.
