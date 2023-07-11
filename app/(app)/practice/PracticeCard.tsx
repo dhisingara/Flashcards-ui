@@ -140,7 +140,7 @@ const PracticeCard = () => {
                 alignContent: "center",
                 alignItems: "center",
                 justifyContent: "center",
-                height: 600,
+                height: 400,
               }}
             >
               {status === 0
@@ -177,7 +177,7 @@ const PracticeCard = () => {
                     handleIGotIt(sortedWords[currentWordIndex]._id)
                   }
                   variant="contained"
-                  size="large"
+                  size="medium"
                 >
                   I got it.
                 </Button>
@@ -186,7 +186,7 @@ const PracticeCard = () => {
                     handleIDidNotGetIt(sortedWords[currentWordIndex]._id)
                   }
                   variant="contained"
-                  size="large"
+                  size="medium"
                 >
                   I did not get it.
                 </Button>
