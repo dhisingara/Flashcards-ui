@@ -68,7 +68,9 @@ const PracticeCard = () => {
     }
     displayWords = displayWords.concat(wordsInZeroBin);
     console.log("displayWords", displayWords);
-    if (hardToRememberBins.length === words.length) {
+    if (!words.length) {
+      setStatusMessage("Please add few words to review.");
+    } else if (hardToRememberBins.length === words.length) {
       setStatusMessage(
         "You have no more words to review, you are permanently done."
       );
