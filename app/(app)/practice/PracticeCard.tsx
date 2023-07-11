@@ -18,10 +18,11 @@ import Box from "@mui/material/Box/Box";
 import { httpGet, httpPost } from "../../httpClient";
 import api from "../../httpClient/api";
 import { Word } from "../../types/types";
+import Spinner from "../../core/components/spinner";
 
 const PracticeCard = () => {
   const { words, setWords } = useContext(WordsContext);
-  console.log("words", words);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [sortedWords, setSortedWords] = useState<Word[]>([]);
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [status, setStatus] = useState<number>(0);
@@ -33,6 +34,7 @@ const PracticeCard = () => {
   const getWords = async () => {
     const res = await httpGet(api.getWords);
     setWords(res.data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -126,6 +128,10 @@ const PracticeCard = () => {
         return -1;
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

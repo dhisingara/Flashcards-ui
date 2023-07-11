@@ -26,15 +26,18 @@ import { httpGet, httpPost } from "../../httpClient";
 import api from "../../httpClient/api";
 import { httpDelete } from "../../httpClient";
 import { useContext, useEffect, useState } from "react";
+import Spinner from "../../core/components/spinner";
 
 const WordsPage = () => {
   // ** Hooks
   const [open, setOpen] = useState<boolean>(false);
   const { words, setWords } = useContext(WordsContext);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getWords = async () => {
     const res = await httpGet(api.getWords);
     setWords(res.data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -71,6 +74,10 @@ const WordsPage = () => {
   const handleClose = (value: string) => {
     setOpen(false);
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
