@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a frontend of the Flashcard assignment. You can checkout the app live [here](http://ec2-16-170-215-166.eu-north-1.compute.amazonaws.com/).
 
 ## Getting Started
 
@@ -6,29 +6,40 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:8080](http://localhost:8080) with your browser to see the application locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This application is build using nextjs 13. This has a different routing setup than the previous versions.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+We are using Material UI to have faster prototype and stable components.
 
-## Learn More
+## Testing
 
-To learn more about Next.js, take a look at the following resources:
+We use playwright for end-to-end testing. Currently the test cases are not fully written. But a basic setup and tests are available to carry out the task further.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Test suites can be run as:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm run test
+```
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application can be deployed by running the following command.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+./scripts/deploy_frontend
+```
+
+Currently the build is generated locally and copied to AWS ec2 instance. And then it is deployed via a docker image.
+
+## Pending tasks
+
+Due to the time constraints we has to setup the following.
+
+- [ ] Strict Linting rules.
+- [ ] Husky for commits hooks.
+- [ ] Write detailed test cases. Both for component testing as well as e2e testing.
+- [ ] Write detailed documentation of the component hierarcy and architecture.
+- [ ] Refactor the code for better cognitive understanding
