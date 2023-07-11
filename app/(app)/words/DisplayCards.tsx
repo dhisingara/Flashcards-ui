@@ -16,24 +16,17 @@ const CardGrid = ({
   handleEdit,
 }: {
   words: Word[];
-  handleDelete: (_id: string) => void;
+  handleDelete: (_id: string) => Promise<boolean>;
   handleEdit: (
     _id: string,
     { word, description }: { word: string; description: string }
-  ) => void;
+  ) => Promise<boolean>;
 }) => {
   return (
     <>
       <Grid container spacing={6}>
         {words.map((word) => (
-          <Grid
-            key={word._id}
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            sx={{ cursor: "pointer" }}
-          >
+          <Grid key={word._id} item xs={12} sm={6} md={4}>
             <WordCard
               handleDelete={handleDelete}
               handleEdit={handleEdit}

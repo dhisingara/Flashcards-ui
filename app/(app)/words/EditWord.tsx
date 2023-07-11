@@ -24,14 +24,23 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Icon from "../../core/components/icon";
 import { Word } from "../../types/types";
 import { WordsContext } from "../../context/WordsContext";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 
-interface State {
-  password: string;
-  showPassword: boolean;
+interface FormData {
+  word: string;
+  description: string;
 }
 
+const schema = yup.object().shape({
+  word: yup.string().required(),
+  description: yup.string().required(),
+});
+
 const EditNewWord = ({
-  word: { _id, word: propWord, description: propDescription },
+  word: { _id, word, description },
   onClose,
   handleEdit,
 }: {
@@ -40,27 +49,31 @@ const EditNewWord = ({
   handleEdit: (
     _id: string,
     { word, description }: { word: string; description: string }
-  ) => void;
+  ) => Promise<boolean>;
 }) => {
   // ** States
-  const [word, setWord] = useState<string>(propWord);
-  const [description, setDescription] = useState<string>(propDescription);
-  const { words, setWords } = useContext(WordsContext);
-
-  const handleWordChange = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setWord(e.target.value);
+  const defaultValues = {
+    word,
+    description,
   };
-  const handleDescriptionChange = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setDescription(e.target.value);
-  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues,
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  });
 
-  const handleOnsubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    handleEdit(_id, { word, description });
+  const handleOnsubmit = async (data: FormData) => {
+    const { word, description } = data;
+    const result = await handleEdit(_id, { word, description });
+    if (result) {
+      toast.success("Word edited successfully");
+    } else {
+      toast.error("Failed to edit the word");
+    }
     onClose();
   };
 
@@ -68,29 +81,68 @@ const EditNewWord = ({
     <Card>
       <CardHeader title="Edit Word" />
       <CardContent>
-        <form onSubmit={handleOnsubmit}>
+        <form
+          onSubmit={handleSubmit(
+            handleOnsubmit as SubmitHandler<{
+              word: string;
+              description: string;
+            }>
+          )}
+        >
           <Grid container spacing={5}>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Word"
-                autoFocus
-                value={word}
-                onChange={handleWordChange}
-                placeholder="Abject"
-                helperText="A difficult word you want to learn and remember"
-              />
+              <FormControl fullWidth sx={{ mb: 4 }}>
+                <Controller
+                  name="word"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      fullWidth
+                      label="Word"
+                      placeholder="Abject"
+                      autoFocus
+                      value={value}
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      error={Boolean(errors.word)}
+                      helperText="A difficult word you want to learn and remember"
+                    />
+                  )}
+                />
+                {errors.word && (
+                  <FormHelperText sx={{ color: "error.main" }}>
+                    {errors.word.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                type="text"
-                label="Description"
-                value={description}
-                onChange={handleDescriptionChange}
-                placeholder="Of the most contemptible kind"
-                helperText="Meaning or description of the above word"
-              />
+              <FormControl fullWidth sx={{ mb: 4 }}>
+                <Controller
+                  name="description"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      fullWidth
+                      type="text"
+                      label="Description"
+                      value={value}
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      error={Boolean(errors.description)}
+                      placeholder="Of the most contemptible kind"
+                      helperText="Meaning or description of the above word"
+                    />
+                  )}
+                />
+                {errors.description && (
+                  <FormHelperText sx={{ color: "error.main" }}>
+                    {errors.description.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
             </Grid>
 
             <Grid item xs={12}>

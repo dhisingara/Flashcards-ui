@@ -41,30 +41,44 @@ const WordsPage = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getWords();
   }, []);
 
   const handleDelete = async (_id: string) => {
+    setIsLoading(true);
     const res = await httpDelete(api.deleteWord + `/${_id}`);
-    console.log(res.data);
     getWords();
+    if (res) {
+      return true;
+    }
+    return false;
   };
 
   const handleEdit = async (
     _id: string,
     data: { word: string; description: string }
   ) => {
+    setIsLoading(true);
     const res = await httpPost(api.deleteWord + `/${_id}`, {
       ...data,
       updateFields: ["word", "description"],
     });
-    console.log(res.data);
     getWords();
+    if (res) {
+      return true;
+    }
+    return false;
   };
 
   const addWord = async (data: { word: string; description: string }) => {
+    setIsLoading(true);
     const res = await httpPost(api.addWord, data);
     getWords();
+    if (res) {
+      return true;
+    }
+    return false;
   };
 
   const handleClickOpen = () => setOpen(true);

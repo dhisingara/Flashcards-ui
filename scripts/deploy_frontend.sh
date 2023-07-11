@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf ./build
 npm run build
 tar -zcvf build.tar.gz ./build/
 scp -i "cli.pem" -r  ./build.tar.gz   ubuntu@ec2-16-170-215-166.eu-north-1.compute.amazonaws.com:~
