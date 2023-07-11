@@ -6,7 +6,7 @@ ENV NODE_ENV=production
 
 COPY ./package*.json .
 COPY ./tsconfig*.json .
-COPY ./build .
+COPY ./build ./build
 
 RUN npm ci -f --only=production 
 
