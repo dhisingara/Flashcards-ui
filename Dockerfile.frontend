@@ -7,7 +7,7 @@ ENV NODE_ENV=production
 COPY . .
 COPY ./build .
 
-RUN npm ci -f --only=production --ignore-scripts
+RUN npm ci -f --only=production 
 
 EXPOSE 8080
 
