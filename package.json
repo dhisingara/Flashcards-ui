@@ -6,7 +6,8 @@
     "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start -p 8080",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "npx playwright test"
   },
   "dependencies": {
     "@casl/ability": "^6.5.0",
@@ -40,6 +41,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.35.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/uuid": "^9.0.2"
   }

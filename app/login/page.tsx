@@ -101,7 +101,6 @@ interface FormData {
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
   // ** Hooks
   const auth = useAuth();
   const theme = useTheme();
@@ -121,7 +120,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data;
-    auth.login({ email, password }, () => {
+    auth.login({ email, password, rememberMe: true }, () => {
       setError("email", {
         type: "manual",
         message: STRINGS.EMAIL_PASSWORD_INVALID,
