@@ -6,10 +6,7 @@ import {
   ReactNode,
   ReactPortal,
 } from "react";
-import type { Metadata } from "next";
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import { Inter } from "next/font/google";
-// import "../core/@fake-db";
 
 import { createEmotionCache } from "../core/utils/create-emotion-cache";
 import { AuthProvider } from "../context/AuthContext";
@@ -29,8 +26,6 @@ import ReactHotToast from "../core/styles/libs/react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { WordsProvider } from "../context/WordsContext";
 import themeConfig from "../configs/themeConfig";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -82,15 +77,6 @@ export default function RootLayout(props: {
       <meta name="viewport" content="initial-scale=1, width=device-width" />
       <body>
         <CacheProvider value={emotionCache}>
-          {/* <Head>
-            <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
-            <meta
-              name="description"
-              content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
-            />
-            
-          </Head> */}
-
           <AuthProvider>
             <WordsProvider>
               <SettingsProvider {...{ pageSettings: setConfig }}>

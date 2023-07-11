@@ -1,17 +1,8 @@
 "use client";
-// ** React Imports
 import { createContext, useEffect, useState, ReactNode } from "react";
-
-// ** Next Import
 import { useRouter, usePathname, redirect } from "next/navigation";
-
-// ** Axios
 import axios from "axios";
-
-// ** Config
 import authConfig from "../configs/auth";
-
-// ** Types
 import {
   AuthValuesType,
   RegisterParams,
@@ -19,8 +10,6 @@ import {
   ErrCallbackType,
   UserDataType,
 } from "./types";
-
-// ** Defaults
 const defaultProvider: AuthValuesType = {
   user: null,
   loading: true,
@@ -63,7 +52,8 @@ const AuthProvider = ({ children }: Props) => {
             setLoading(false);
             setUser({ ...response.data });
           })
-          .catch(() => {
+          .catch((ee) => {
+            console.log(ee);
             localStorage.removeItem("userData");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("accessToken");

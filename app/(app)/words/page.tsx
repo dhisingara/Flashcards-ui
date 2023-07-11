@@ -1,24 +1,9 @@
 "use client";
 import Fab from "@mui/material/Fab";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Icon from "../../core/components/icon";
 
-// ** MUI Imports
-import List from "@mui/material/List";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import MuiAvatar from "@mui/material/Avatar";
-import ListItem from "@mui/material/ListItem";
-import DialogTitle from "@mui/material/DialogTitle";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-
-// ** Icon Imports
-
-// ** Custom Components Imports
-import CustomAvatar from "../../core/components/mui/avatar";
 import CardGrid from "./DisplayCards";
 import AddNewWord from "./AddNewWord";
 import { WordsContext } from "../../context/WordsContext";
@@ -27,9 +12,9 @@ import api from "../../httpClient/api";
 import { httpDelete } from "../../httpClient";
 import { useContext, useEffect, useState } from "react";
 import Spinner from "../../core/components/spinner";
+import { strings as STRINGS } from "../../constants/constants";
 
 const WordsPage = () => {
-  // ** Hooks
   const [open, setOpen] = useState<boolean>(false);
   const { words, setWords } = useContext(WordsContext);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -85,10 +70,6 @@ const WordsPage = () => {
 
   const handleDialogClose = () => setOpen(false);
 
-  const handleClose = (value: string) => {
-    setOpen(false);
-  };
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -110,7 +91,7 @@ const WordsPage = () => {
           onClick={handleClickOpen}
         >
           <Icon icon="tabler:plus" />
-          Add
+          {STRINGS.BUTTON_ADD}
         </Fab>
       </Box>
       <Dialog

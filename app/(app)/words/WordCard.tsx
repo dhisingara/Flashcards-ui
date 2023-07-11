@@ -1,18 +1,16 @@
 // ** MUI Imports
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-
 import EditWord from "./EditWord";
-import Icon from "../../core/components/icon";
 import { Word } from "../../types/types";
 import CountdownTimer from "./countdowntimer/CountdownTimer";
 import { toast } from "react-hot-toast";
+import { strings as STRINGS } from "../../constants/constants";
 
 const WordCard = ({
   word: { _id, word, description, bin, wrongCount, timeToNextAppearance },
@@ -53,23 +51,24 @@ const WordCard = ({
           sx={{ p: (theme) => `${theme.spacing(3.25, 5, 4.5)} !important` }}
         >
           <Typography variant="h6" sx={{ mb: 3, color: "common.white" }}>
-            Word: {word}
+            {STRINGS.FLASHCARD_WORD}: {word}
           </Typography>
           <Typography variant="h6" sx={{ mb: 3, color: "common.white" }}>
-            Description: {description}
+            {STRINGS.FLASHCARD_DESCRIPTION} : {description}
           </Typography>
           <Typography variant="h6" sx={{ mb: 3, color: "common.white" }}>
-            Bin Number: {bin === -1 ? "Hard to Remember" : bin}
+            {STRINGS.FLASHCARD_BIN_NUMBER}:{" "}
+            {bin === -1 ? "Hard to Remember" : bin}
           </Typography>
           <Typography variant="h6" sx={{ mb: 3, color: "common.white" }}>
-            Time To Next Appearance:
+            {STRINGS.FLASHCARD_TIME_TO_NEXT_APPEARENCE} :
             <CountdownTimer
               targetDate={timeToNextAppearance}
               hardToRemember={wrongCount >= 10}
             />
           </Typography>
           <Typography variant="h6" sx={{ mb: 3, color: "common.white" }}>
-            No of Times Answered Incorrect: {wrongCount}
+            {STRINGS.FLASHCARD_WRONG_COUNT} : {wrongCount}
           </Typography>
         </CardContent>
         <Box
@@ -88,7 +87,7 @@ const WordCard = ({
             variant="contained"
             size="small"
           >
-            Edit
+            {STRINGS.BUTTON_EDIT}
           </Button>
           <Button
             onClick={() => {
@@ -98,7 +97,7 @@ const WordCard = ({
             variant="contained"
             size="small"
           >
-            Delete
+            {STRINGS.BUTTON_DELETE}
           </Button>
         </Box>
       </Card>
@@ -119,7 +118,7 @@ const WordCard = ({
         open={deleteOpen}
       >
         <Typography variant="h6" sx={{ mb: 3, p: 20 }}>
-          Are you sure?
+          {STRINGS.ARE_YOU_SURE}
         </Typography>
         <Box
           sx={{
@@ -136,22 +135,22 @@ const WordCard = ({
             variant="contained"
             size="medium"
           >
-            No
+            {STRINGS.BUTTON_NO}
           </Button>
           <Button
             onClick={async () => {
               handleDeleteDialogClose();
               const result = await handleDelete(_id);
               if (result) {
-                toast.success("Word deleted successfully");
+                toast.success(STRINGS.TOAST_MESSAGE_WORD_DELETED_SUCCESS);
               } else {
-                toast.error("Failed to delete the word");
+                toast.error(STRINGS.TOAST_MESSAGE_WORD_DELETED_FAIL);
               }
             }}
             variant="contained"
             size="medium"
           >
-            Yes
+            {STRINGS.BUTTON_YES}
           </Button>
         </Box>
       </Dialog>

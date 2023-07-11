@@ -12,7 +12,7 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 // ** Layout Import
 import BlankLayout from "./core/layouts/BlankLayout";
-
+import { strings as STRINGS } from "./constants/constants";
 // ** Demo Imports
 
 // ** Styled Components
@@ -49,14 +49,13 @@ const Error500 = () => {
       >
         <BoxWrapper>
           <Typography variant="h4" sx={{ mb: 1.5 }}>
-            Oops, something went wrong!
+            {STRINGS.REQUESTED_URL_NOT_FOUND}
           </Typography>
           <Typography sx={{ mb: 6, color: "text.secondary" }}>
-            There was an error with the internal server. Please contact your
-            site administrator.
+            {STRINGS.OOPS_SOMETHING_WENT_WRONG}
           </Typography>
           <Button href="/" component={Link} variant="contained">
-            Back to Home
+            {STRINGS.BACK_TO_HOME}
           </Button>
         </BoxWrapper>
         <Img

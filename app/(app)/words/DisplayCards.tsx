@@ -1,13 +1,6 @@
 // ** MUI Imports
 import Grid from "@mui/material/Grid";
-
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import CardContent from "@mui/material/CardContent";
-
 import WordCard from "./WordCard";
-
 import { Word } from "../../types/types";
 
 const CardGrid = ({

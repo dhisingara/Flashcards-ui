@@ -1,33 +1,18 @@
-// ** React Imports
-import { ChangeEvent, SetStateAction, useContext, useState } from "react";
-
-// ** Next Import
-import Link from "next/link";
-
-// ** MUI Imports
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import CardHeader from "@mui/material/CardHeader";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from "@mui/material/FormHelperText";
 
-// ** Icon Imports
-import Icon from "../../core/components/icon";
-import { Word } from "../../types/types";
-import { WordsContext } from "../../context/WordsContext";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
+import { strings as STRINGS } from "../../constants/constants";
 
 interface FormData {
   word: string;
@@ -51,7 +36,6 @@ const EditNewWord = ({
     { word, description }: { word: string; description: string }
   ) => Promise<boolean>;
 }) => {
-  // ** States
   const defaultValues = {
     word,
     description,
@@ -70,16 +54,16 @@ const EditNewWord = ({
     const { word, description } = data;
     const result = await handleEdit(_id, { word, description });
     if (result) {
-      toast.success("Word edited successfully");
+      toast.success(STRINGS.TOAST_MESSAGE_WORD_EDITED_SUCCESS);
     } else {
-      toast.error("Failed to edit the word");
+      toast.error(STRINGS.TOAST_MESSAGE_WORD_EDITED_FAIL);
     }
     onClose();
   };
 
   return (
     <Card>
-      <CardHeader title="Edit Word" />
+      <CardHeader title={STRINGS.TITLE_EDIT_NEW_WORD} />
       <CardContent>
         <form
           onSubmit={handleSubmit(
@@ -99,14 +83,14 @@ const EditNewWord = ({
                   render={({ field: { value, onChange, onBlur } }) => (
                     <TextField
                       fullWidth
-                      label="Word"
-                      placeholder="Abject"
+                      label={STRINGS.LABEL_WORD}
+                      placeholder={STRINGS.PLACEHOLDER_WORD}
                       autoFocus
                       value={value}
                       onChange={onChange}
                       onBlur={onBlur}
                       error={Boolean(errors.word)}
-                      helperText="A difficult word you want to learn and remember"
+                      helperText={STRINGS.HELPER_TEXT_WORD}
                     />
                   )}
                 />
@@ -127,13 +111,13 @@ const EditNewWord = ({
                     <TextField
                       fullWidth
                       type="text"
-                      label="Description"
+                      label={STRINGS.LABEL_DESCRIPTIONS}
                       value={value}
                       onChange={onChange}
                       onBlur={onBlur}
                       error={Boolean(errors.description)}
-                      placeholder="Of the most contemptible kind"
-                      helperText="Meaning or description of the above word"
+                      placeholder={STRINGS.PLACEHOLDER_DESCRIPTION}
+                      helperText={STRINGS.HELPER_TEXT_DESCRIPTION}
                     />
                   )}
                 />
@@ -156,7 +140,7 @@ const EditNewWord = ({
                 }}
               >
                 <Button type="submit" variant="contained" size="large">
-                  Edit Word
+                  {STRINGS.EDIT_WORD}
                 </Button>
               </Box>
             </Grid>

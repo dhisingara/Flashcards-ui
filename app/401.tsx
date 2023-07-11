@@ -12,9 +12,8 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 // ** Layout Import
 import BlankLayout from "./core/layouts/BlankLayout";
-
+import { strings as STRINGS } from "./constants/constants";
 // ** Demo Imports
-import FooterIllustrations from "./views/pages/misc/FooterIllustrations";
 
 // ** Styled Components
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -50,17 +49,16 @@ const Error401 = () => {
       >
         <BoxWrapper>
           <Typography variant="h4" sx={{ mb: 1.5 }}>
-            You are not authorized!
+            {STRINGS.YOUR_ARE_NOT_AUTHORIZED}.
           </Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            You do not have permission to view this page using the credentials
-            that you have provided while login.
+            {STRINGS.YOU_DONT_HAVE_PERMISSIONS_MESSAGE}
           </Typography>
           <Typography sx={{ mb: 6, color: "text.secondary" }}>
-            Please contact your site administrator.
+            {STRINGS.CONTACT_SITE_ADMIN}
           </Typography>
           <Button href="/" component={Link} variant="contained">
-            Back to Home
+            {STRINGS.BACK_TO_HOME}
           </Button>
         </BoxWrapper>
         <Img
@@ -69,7 +67,6 @@ const Error401 = () => {
           src="/images/pages/401.png"
         />
       </Box>
-      <FooterIllustrations />
     </Box>
   );
 };

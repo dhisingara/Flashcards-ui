@@ -1,24 +1,16 @@
-// ** MUI Imports
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
-import { Fragment, useEffect } from "react";
-
-// ** MUI Imports
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import { DateTime } from "luxon";
-
-// ** Icon Imports
-import Icon from "../../core/components/icon";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { WordsContext } from "../../context/WordsContext";
 import Box from "@mui/material/Box/Box";
 import { httpGet, httpPost } from "../../httpClient";
 import api from "../../httpClient/api";
 import { Word } from "../../types/types";
 import Spinner from "../../core/components/spinner";
+import { strings as STRINGS } from "../../constants/constants";
 
 const PracticeCard = () => {
   const { words, setWords } = useContext(WordsContext);
@@ -27,7 +19,7 @@ const PracticeCard = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [status, setStatus] = useState<number>(0);
   const [statusMessage, setStatusMessage] = useState<string>(
-    "You are temporarily done; please come back later to review more words."
+    STRINGS.STATUS_MESSAGE_TEMPORARILY_DONE
   );
   const handleShowDescription = () => {
     setStatus(1);
@@ -45,39 +37,28 @@ const PracticeCard = () => {
 
   useEffect(() => {
     let displayWords: Word[] = [];
-    console.log("words", words);
     const learnBins = words.filter((word) => word.wrongCount < 10);
     const hardToRememberBins = words.filter((word) => word.wrongCount === 10);
-    console.log("hardToRememberBins", hardToRememberBins);
 
     const wordsInHigerBin = learnBins.filter((word) => word.bin > 0);
-    console.log("wordsInHigerBin", wordsInHigerBin);
     const wordsInZeroBin = learnBins.filter((word) => word.bin === 0);
-    console.log("wordsInZeroBin", wordsInZeroBin);
 
     if (wordsInHigerBin.length) {
       const wordsWithNegativeTime = wordsInHigerBin.filter(
         (word) => word.timeToNextAppearance <= Date.now()
       );
-      console.log("wordsWithNegativeTime", wordsWithNegativeTime);
 
       wordsWithNegativeTime.sort((a, b) => a.bin - b.bin);
-      console.log("wordsWithNegativeTime sorted", wordsWithNegativeTime);
 
       displayWords = displayWords.concat(wordsWithNegativeTime);
     }
     displayWords = displayWords.concat(wordsInZeroBin);
-    console.log("displayWords", displayWords);
     if (!words.length) {
-      setStatusMessage("Please add few words to review.");
+      setStatusMessage(STRINGS.STATUS_MESSAGE_ADD_WORDS);
     } else if (hardToRememberBins.length === words.length) {
-      setStatusMessage(
-        "You have no more words to review, you are permanently done."
-      );
+      setStatusMessage(STRINGS.STATUS_MESSAGE_PERMANENTLY_DONE);
     } else if (!displayWords.length) {
-      setStatusMessage(
-        "You are temporarily done; please come back later to review more words."
-      );
+      setStatusMessage(STRINGS.STATUS_MESSAGE_TEMPORARILY_DONE);
     }
     setSortedWords(displayWords);
   }, [words]);
@@ -109,9 +90,7 @@ const PracticeCard = () => {
     setStatus(0);
     const hardToRememberBins = words.filter((word) => word.wrongCount === 10);
     if (hardToRememberBins.length === words.length) {
-      setStatusMessage(
-        "You have no more words to review, you are permanently done."
-      );
+      setStatusMessage(STRINGS.STATUS_MESSAGE_PERMANENTLY_DONE);
     }
   };
 

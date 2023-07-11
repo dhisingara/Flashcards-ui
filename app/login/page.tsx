@@ -6,9 +6,7 @@ import { useState, ReactNode, MouseEvent } from "react";
 import Link from "next/link";
 
 // ** MUI Components
-import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -25,10 +23,8 @@ import MuiFormControlLabel, {
   FormControlLabelProps,
 } from "@mui/material/FormControlLabel";
 
-// ** Icon Imports
 import Icon from "../core/components/icon";
 
-// ** Third Party Imports
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -44,7 +40,7 @@ import themeConfig from "../configs/themeConfig";
 // ** Layout Import
 import BlankLayout from "../core/layouts/BlankLayout";
 
-// ** Demo Imports
+import { strings as STRINGS } from "../constants/constants";
 
 // ** Styled Components
 const LoginIllustration = styled("img")(({ theme }) => ({
@@ -104,18 +100,13 @@ interface FormData {
 }
 
 const LoginPage = () => {
-  const [rememberMe, setRememberMe] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // ** Hooks
   const auth = useAuth();
   const theme = useTheme();
-  const bgColors = useBgColor();
-  const { settings } = useSettings();
-  const hidden = useMediaQuery(theme.breakpoints.down("md"));
 
   // ** Vars
-  const { skin } = settings;
 
   const {
     control,
@@ -130,18 +121,13 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data;
-    auth.login({ email, password, rememberMe }, () => {
+    auth.login({ email, password }, () => {
       setError("email", {
         type: "manual",
-        message: "Email or Password is invalid",
+        message: STRINGS.EMAIL_PASSWORD_INVALID,
       });
     });
   };
-
-  const imageSource =
-    skin === "bordered"
-      ? "auth-v2-login-illustration-bordered"
-      : "auth-v2-login-illustration";
 
   return (
     <Box
@@ -208,7 +194,7 @@ const LoginPage = () => {
                   lineHeight: 1.385,
                 }}
               >
-                {`Welcome to ${themeConfig.templateName}! 👋🏻`}
+                {`${STRINGS.WELLCOME_TO} ${themeConfig.templateName}! 👋🏻`}
               </Typography>
             </Box>
 
@@ -230,7 +216,7 @@ const LoginPage = () => {
                       onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.email)}
-                      placeholder="admin@vuexy.com"
+                      placeholder="email@email.com"
                     />
                   )}
                 />
@@ -245,7 +231,7 @@ const LoginPage = () => {
                   htmlFor="auth-login-v2-password"
                   error={Boolean(errors.password)}
                 >
-                  Password
+                  {STRINGS.PASSWORD}
                 </InputLabel>
                 <Controller
                   name="password"
@@ -285,28 +271,7 @@ const LoginPage = () => {
                   </FormHelperText>
                 )}
               </FormControl>
-              <Box
-                sx={{
-                  mb: 1.75,
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <FormControlLabel
-                  label="Remember Me"
-                  control={
-                    <Checkbox
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                  }
-                />
-                <LinkStyled href="/forgot-password">
-                  Forgot Password?
-                </LinkStyled>
-              </Box>
+
               <Button
                 fullWidth
                 size="large"
@@ -314,7 +279,7 @@ const LoginPage = () => {
                 variant="contained"
                 sx={{ mb: 4 }}
               >
-                Login
+                {STRINGS.LOGIN}
               </Button>
               <Box
                 sx={{
@@ -325,11 +290,11 @@ const LoginPage = () => {
                 }}
               >
                 <Typography sx={{ color: "text.secondary", mr: 2 }}>
-                  New on our platform?
+                  {STRINGS.NEW_TO_PLATFORM}
                 </Typography>
                 <Typography variant="body2">
                   <LinkStyled href="/register" sx={{ fontSize: "1rem" }}>
-                    Create an account
+                    {STRINGS.CREATE_ACCOUNT}
                   </LinkStyled>
                 </Typography>
               </Box>

@@ -1,36 +1,17 @@
-// ** React Imports
-import { ChangeEvent, SetStateAction, useContext, useState } from "react";
-
-// ** Next Import
-import Link from "next/link";
-
-// ** MUI Imports
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import CardHeader from "@mui/material/CardHeader";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
 import FormHelperText from "@mui/material/FormHelperText";
-import { v4 as uuidv4 } from "uuid";
-
-// ** Icon Imports
-import Icon from "../../core/components/icon";
-import { WordsContext } from "../../context/WordsContext";
-import axios from "axios";
-import { httpPost } from "../../httpClient";
-import api from "../../httpClient/api";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
+import { strings as STRINGS } from "../../constants/constants";
 
 interface FormData {
   word: string;
@@ -74,16 +55,16 @@ const AddNewWord = ({
     const { word, description } = data;
     const result = await addWord({ word, description });
     if (result) {
-      toast.success("Word added successfully");
+      toast.success(STRINGS.TOAST_MESSAGE_WORD_ADDED_SUCCESS);
     } else {
-      toast.error("Failed to add the word");
+      toast.error(STRINGS.TOAST_MESSAGE_WORD_ADDED_FAIL);
     }
     onClose();
   };
 
   return (
     <Card>
-      <CardHeader title="Adding New Word" />
+      <CardHeader title={STRINGS.TITLE_ADD_NEW_WORD} />
       <CardContent>
         <form
           onSubmit={handleSubmit(
@@ -103,14 +84,14 @@ const AddNewWord = ({
                   render={({ field: { value, onChange, onBlur } }) => (
                     <TextField
                       fullWidth
-                      label="Word"
-                      placeholder="Abject"
+                      label={STRINGS.LABEL_WORD}
+                      placeholder={STRINGS.PLACEHOLDER_WORD}
                       autoFocus
                       value={value}
                       onChange={onChange}
                       onBlur={onBlur}
                       error={Boolean(errors.word)}
-                      helperText="A difficult word you want to learn and remember"
+                      helperText={STRINGS.HELPER_TEXT_WORD}
                     />
                   )}
                 />
@@ -131,13 +112,13 @@ const AddNewWord = ({
                     <TextField
                       fullWidth
                       type="text"
-                      label="Description"
+                      label={STRINGS.LABEL_DESCRIPTIONS}
                       value={value}
                       onChange={onChange}
                       onBlur={onBlur}
                       error={Boolean(errors.description)}
-                      placeholder="Of the most contemptible kind"
-                      helperText="Meaning or description of the above word"
+                      placeholder={STRINGS.PLACEHOLDER_DESCRIPTION}
+                      helperText={STRINGS.HELPER_TEXT_DESCRIPTION}
                     />
                   )}
                 />
@@ -160,7 +141,7 @@ const AddNewWord = ({
                 }}
               >
                 <Button type="submit" variant="contained" size="large">
-                  Add Word
+                  {STRINGS.ADD_WORD}
                 </Button>
               </Box>
             </Grid>

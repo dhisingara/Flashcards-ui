@@ -39,7 +39,7 @@ import BlankLayout from "../core/layouts/BlankLayout";
 import { useAuth } from "../hooks/useAuth";
 import { useSettings } from "../core/hooks/useSettings";
 
-// ** Demo Imports
+import { strings as STRINGS } from "../constants/constants";
 
 const defaultValues = {
   email: "",
@@ -56,18 +56,6 @@ interface FormData {
 }
 
 // ** Styled Components
-const RegisterIllustration = styled("img")(({ theme }) => ({
-  zIndex: 2,
-  maxHeight: 600,
-  marginTop: theme.spacing(12),
-  marginBottom: theme.spacing(12),
-  [theme.breakpoints.down(1540)]: {
-    maxHeight: 550,
-  },
-  [theme.breakpoints.down("lg")]: {
-    maxHeight: 500,
-  },
-}));
 
 const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: "100%",
@@ -115,9 +103,7 @@ const Register = () => {
     password: yup.string().min(5).required(),
     userName: yup.string().min(3).required(),
     email: yup.string().email().required(),
-    terms: yup
-      .bool()
-      .oneOf([true], "You must accept the privacy policy & terms"),
+    terms: yup.bool().oneOf([true], STRINGS.ACCEPT_PRIVACY_POLICY_TERMS),
   });
 
   const {
@@ -372,7 +358,7 @@ const Register = () => {
                 variant="contained"
                 sx={{ mb: 4 }}
               >
-                Sign up
+                {STRINGS.SIGN_UP}
               </Button>
               <Box
                 sx={{
@@ -383,11 +369,11 @@ const Register = () => {
                 }}
               >
                 <Typography sx={{ color: "text.secondary", mr: 2 }}>
-                  Already have an account?
+                  {STRINGS.ALREADY_HAVE_ACCOUNT}
                 </Typography>
                 <Typography variant="body2">
                   <LinkStyled href="/login" sx={{ fontSize: "1rem" }}>
-                    Sign in instead
+                    {STRINGS.SIGN_IN_INSTEAD}
                   </LinkStyled>
                 </Typography>
               </Box>

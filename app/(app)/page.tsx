@@ -1,25 +1,13 @@
 "use client";
-// ** React Imports
 import { useEffect } from "react";
-
-// ** Next Import
 import { useRouter } from "next/navigation";
-
-// ** Spinner Import
 import Spinner from "../core/components/spinner";
-
-// ** Hook Imports
 import { useAuth } from "../hooks/useAuth";
-
-/**
- *  Set Home URL based on User Roles
- */
 const getHomeRoute = () => {
   return "/practice";
 };
 
 const Home = () => {
-  // ** Hooks
   const auth = useAuth();
   const router = useRouter();
 
@@ -27,7 +15,6 @@ const Home = () => {
     if (auth.user) {
       const homeRoute = getHomeRoute();
 
-      // Redirect user to Home URL
       router.replace(homeRoute);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

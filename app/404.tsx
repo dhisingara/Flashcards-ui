@@ -12,7 +12,7 @@ import Box, { BoxProps } from "@mui/material/Box";
 
 // ** Layout Import
 import BlankLayout from "./core/layouts/BlankLayout";
-
+import { strings as STRINGS } from "./constants/constants";
 // ** Demo Imports
 
 // ** Styled Components
@@ -49,13 +49,13 @@ const Error404 = () => {
       >
         <BoxWrapper>
           <Typography variant="h4" sx={{ mb: 1.5 }}>
-            Page Not Found :(
+            {STRINGS.PAGE_NOT_FOUND} :(
           </Typography>
           <Typography sx={{ mb: 6, color: "text.secondary" }}>
-            Oops! 😖 The requested URL was not found on this server.
+            {STRINGS.REQUESTED_URL_NOT_FOUND}
           </Typography>
           <Button href="/" component={Link} variant="contained">
-            Back to Home
+            {STRINGS.BACK_TO_HOME}
           </Button>
         </BoxWrapper>
         <Img

@@ -1,18 +1,8 @@
 "use client";
-// ** React Imports
-import { createContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 
-// ** Types
-import {
-  AuthValuesType,
-  RegisterParams,
-  LoginParams,
-  ErrCallbackType,
-  UserDataType,
-  WordsValuesType,
-} from "./types";
+import { WordsValuesType } from "./types";
 import { Word } from "../types/types";
-// ** Defaults
 const defaultProvider: WordsValuesType = {
   words: [],
   setWords: () => {},
