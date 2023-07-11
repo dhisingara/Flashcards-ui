@@ -26,7 +26,9 @@ const PracticeCard = () => {
   const [sortedWords, setSortedWords] = useState<Word[]>([]);
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [status, setStatus] = useState<number>(0);
-  const [statusMessage, setStatusMessage] = useState<string>("");
+  const [statusMessage, setStatusMessage] = useState<string>(
+    "You are temporarily done; please come back later to review more words."
+  );
   const handleShowDescription = () => {
     setStatus(1);
   };
@@ -43,12 +45,11 @@ const PracticeCard = () => {
 
   useEffect(() => {
     let displayWords: Word[] = [];
+    console.log("words", words);
     const learnBins = words.filter((word) => word.wrongCount < 10);
-    if (learnBins.length === words.length) {
-      setStatusMessage(
-        "You have no more words to review, you are permanently done."
-      );
-    }
+    const hardToRememberBins = words.filter((word) => word.wrongCount === 10);
+    console.log("hardToRememberBins", hardToRememberBins);
+
     const wordsInHigerBin = learnBins.filter((word) => word.bin > 0);
     console.log("wordsInHigerBin", wordsInHigerBin);
     const wordsInZeroBin = learnBins.filter((word) => word.bin === 0);
@@ -67,7 +68,11 @@ const PracticeCard = () => {
     }
     displayWords = displayWords.concat(wordsInZeroBin);
     console.log("displayWords", displayWords);
-    if (!displayWords.length) {
+    if (hardToRememberBins.length === words.length) {
+      setStatusMessage(
+        "You have no more words to review, you are permanently done."
+      );
+    } else if (!displayWords.length) {
       setStatusMessage(
         "You are temporarily done; please come back later to review more words."
       );
@@ -100,6 +105,12 @@ const PracticeCard = () => {
 
     setCurrentWordIndex(currentWordIndex + 1);
     setStatus(0);
+    const hardToRememberBins = words.filter((word) => word.wrongCount === 10);
+    if (hardToRememberBins.length === words.length) {
+      setStatusMessage(
+        "You have no more words to review, you are permanently done."
+      );
+    }
   };
 
   const getNextTimeToAppearance = (bin: number) => {
